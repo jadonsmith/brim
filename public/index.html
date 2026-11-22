@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Brim</title>
+<meta name="description" content="Your phone is a glass filled to the brim. Run a relay around the furniture without spilling while the other team drops ice cubes and earthquakes on you.">
+<meta name="theme-color" content="#0c0a17">
+<meta property="og:title" content="Brim">
+<meta property="og:description" content="A phone party relay: carry a glass filled to the brim around the room, pour it into the next runner's phone, and spill less than the other team.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='d' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23ffc94a'/%3E%3Cstop offset='1' stop-color='%23d8351a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230c0a17'/%3E%3Cpath d='M17 15h30l-3.4 36a4 4 0 0 1-4 3.6H24.4a4 4 0 0 1-4-3.6z' fill='none' stroke='%23fff' stroke-opacity='.8' stroke-width='3'/%3E%3Cpath d='M18.6 21.5c4-2 8.6 1.4 13.4-.4s9.4-1.6 13.4.4L43 50.6a3 3 0 0 1-3 2.6H24a3 3 0 0 1-3-2.6z' fill='url(%23d)'/%3E%3Ccircle cx='50' cy='12' r='3.6' fill='%2358e6ff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<a class="hub-link" href="https://play.jadon.me/"><span aria-hidden="true">←</span> All games</a>
+
+<!-- ═════════════════════════ PHONE ═════════════════════════ -->
+<main id="phone" class="app">
+
+  <!-- home -->
+  <section id="scr-home" class="screen home">
+    <div class="home-in">
+      <h1 class="logo" aria-label="Brim">
+        <svg class="logo-svg" viewBox="0 0 300 150" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg-drink" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffd76a"/><stop offset=".45" stop-color="#ff8a1f"/><stop offset="1" stop-color="#d8351a"/>
+            </linearGradient>
+            <linearGradient id="lg-drink2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7cf0ff"/><stop offset=".5" stop-color="#2fb8ff"/><stop offset="1" stop-color="#1235c9"/>
+            </linearGradient>
+            <clipPath id="lg-clip"><text x="150" y="122" text-anchor="middle" class="lt">brim</text></clipPath>
+          </defs>
+          <text x="150" y="122" text-anchor="middle" class="lt lt-glass">brim</text>
+          <g clip-path="url(#lg-clip)">
+            <path class="lw lw2" d="M-300 74 C -250 62, -200 86, -150 74 S -50 62, 0 74 S 100 86, 150 74 S 250 62, 300 74 S 400 86, 450 74 S 550 62, 600 74 V 160 H -300 Z" fill="url(#lg-drink2)" opacity=".55"/>
+            <path class="lw" d="M-300 66 C -250 54, -200 80, -150 66 S -50 54, 0 66 S 100 80, 150 66 S 250 54, 300 66 S 400 80, 450 66 S 550 54, 600 66 V 160 H -300 Z" fill="url(#lg-drink)"/>
+          </g>
+          <path class="drop" d="M206 8 C 206 8, 196 22, 196 28 a 10 10 0 0 0 20 0 C 216 22, 206 8, 206 8 Z" fill="#58e6ff"/>
+        </svg>
+      </h1>
+      <p class="pitch">Your phone is a glass, <b>filled to the brim.</b> Run it round the furniture, pour it into your teammate's phone, and spill less than the other team while they throw ice cubes at you.</p>
+
+      <form id="f-home" class="home-form" autocomplete="off">
+        <label class="sr" for="in-name">Your name</label>
+        <input id="in-name" maxlength="14" placeholder="Your name" spellcheck="false" autocomplete="nickname" enterkeyhint="go">
+        <button class="btn primary big" type="submit" id="btn-create">Start a party <span aria-hidden="true">→</span></button>
+        <div class="join-row">
+          <label class="sr" for="in-code">Room code</label>
+          <input id="in-code" class="code-in" maxlength="4" placeholder="CODE" spellcheck="false" autocapitalize="characters" autocomplete="off">
+          <button class="btn ghost" type="button" id="btn-join">Join</button>
+        </div>
+        <button class="btn link" type="button" id="btn-solo">Solo carry: just you and a full glass</button>
+      </form>
+      <p class="tv-tip">Got a TV or laptop? Open <a href="?tv">the big screen</a> on it and everyone scans in.</p>
+    </div>
+  </section>
+
+  <!-- lobby -->
+  <section id="scr-lobby" class="screen lobby">
+    <header class="lob-head">
+      <button class="chip ghost" id="btn-leave" type="button"><span aria-hidden="true">←</span> Leave</button>
+      <div class="room-id" aria-live="polite"><span class="lbl">Room</span><span class="code" id="lob-code">····</span></div>
+      <div class="lob-acts">
+        <button class="chip" id="btn-share" type="button">Invite</button>
+        <button class="chip" id="btn-qr" type="button" aria-expanded="false">QR</button>
+      </div>
+    </header>
+
+    <div class="lob-body">
+      <div id="qr-box" class="qr-box" hidden>
+        <div class="qr" id="lob-qr"></div>
+        <p>Point another phone's camera here to join</p>
+      </div>
+
+      <div class="glass-card" id="glass-card">
+        <canvas id="lob-glass" aria-hidden="true"></canvas>
+        <div class="gc-text">
+          <h2 id="gc-title">Pick up your glass</h2>
+          <p id="gc-sub">Brim sloshes the drink with your phone's motion sensors. Nothing leaves your phone.</p>
+          <button class="btn primary" id="btn-motion" type="button">Pick up your glass</button>
+          <p class="gc-note" id="gc-note" hidden></p>
+        </div>
+      </div>
+
+      <div class="teams" id="teams">
+        <section class="team t0" data-team="0">
+          <header><h3>Sunrise</h3><span class="tcount" id="tc0"></span></header>
+          <ul id="tl0"></ul>
+          <button class="chip join-team" type="button" data-team="0">Join Sunrise</button>
+        </section>
+        <section class="team t1" data-team="1">
+          <header><h3>Lagoon</h3><span class="tcount" id="tc1"></span></header>
+          <ul id="tl1"></ul>
+          <button class="chip join-team" type="button" data-team="1">Join Lagoon</button>
+        </section>
+      </div>
+      <div class="heck-row">
+        <p id="heck-list"></p>
+        <button class="chip ghost" id="btn-heckle" type="button">Just heckle</button>
+      </div>
+
+      <div class="settings" id="settings">
+        <h3 class="list-h">The game <button id="btn-shuffle" class="chip ghost small" type="button">Shuffle teams</button></h3>
+        <div class="seg" data-k="mode" role="group" aria-label="Mode"><button type="button" data-v="race">Race</button><button type="button" data-v="turns">Turns</button></div>
+        <p class="seg-note" id="note-mode"></p>
+        <div class="seg" data-k="fill" role="group" aria-label="How full"><button type="button" data-v="generous">Generous</button><button type="button" data-v="brim">Brim</button><button type="button" data-v="meniscus">Meniscus</button></div>
+        <p class="seg-note" id="note-fill"></p>
+        <div class="seg" data-k="legs" role="group" aria-label="Legs"><button type="button" data-v="1">Run once each</button><button type="button" data-v="2">Twice each</button></div>
+        <div class="seg" data-k="mischief" role="group" aria-label="Mischief"><button type="button" data-v="true">Mischief on</button><button type="button" data-v="false">Off</button></div>
+      </div>
+
+      <details class="how" id="how">
+        <summary>How to play</summary>
+        <ol>
+          <li><b>Build a course.</b> Start at a doorway, weave round chairs, under the table, round the sofa, back to the start.</li>
+          <li><b>Run your leg</b> holding your phone like a full glass. Spill and it's gone, and the glass has a slow leak, so don't dawdle.</li>
+          <li><b>Pour it on.</b> Back at the start, hold the button and tip your phone over the next runner's phone. They catch it and go.</li>
+          <li><b>Make mischief.</b> Everyone not holding a glass throws quakes, ice cubes, fizz, frost and swells at the other team's runner, or puts a lid on their own.</li>
+          <li><b>Most drink delivered wins.</b> Each leg's glass is sized to what's left, so it always starts brim-full.</li>
+        </ol>
+      </details>
+    </div>
+
+    <footer class="lob-foot">
+      <p class="wait" id="lob-wait"></p>
+      <button class="btn primary big" id="btn-start" type="button" hidden>Start</button>
+    </footer>
+  </section>
+
+  <!-- in game -->
+  <section id="scr-game" class="screen game">
+    <div class="stage-wrap" id="stage-wrap">
+      <canvas id="stage"></canvas>
+      <canvas id="frost" class="frost" hidden></canvas>
+
+      <div class="hud" id="hud" hidden>
+        <div class="hud-top">
+          <span class="tchip" id="hud-team">Sunrise</span>
+          <span class="hud-leg" id="hud-leg"></span>
+          <span class="hud-clock" id="hud-clock"></span>
+        </div>
+        <div class="hud-vol"><b id="hud-ml">0</b><small>ml</small><span class="hud-kept" id="hud-kept"></span></div>
+      </div>
+
+      <div class="banner" id="banner" hidden>
+        <span class="b-ic" id="b-ic"></span>
+        <span class="b-txt"><b id="b-what"></b><small id="b-who"></small></span>
+      </div>
+
+      <div class="center" id="center" hidden>
+        <p class="c-kick" id="c-kick"></p>
+        <p class="c-big" id="c-big"></p>
+        <p class="c-sub" id="c-sub"></p>
+      </div>
+
+      <div class="actions" id="actions" hidden>
+        <button class="hold" id="btn-hold" type="button">
+          <svg class="hold-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>
+          <span class="hold-in"><b id="hold-txt">Hold to pour</b><small id="hold-sub">when you're back at the start</small></span>
+        </button>
+      </div>
+
+      <!-- everyone not holding a glass -->
+      <div class="spec" id="spec" hidden>
+        <div class="spec-labels" id="spec-labels"></div>
+        <div class="spec-panel">
+          <p class="spec-status" id="spec-status"></p>
+          <div class="target" id="target" hidden></div>
+          <div class="charges-row"><span class="charges" id="charges"></span><span class="charges-lbl" id="charges-lbl"></span></div>
+          <div class="deck" id="deck"></div>
+          <div class="cheers" id="cheers">
+            <button type="button" data-e="👏">👏</button><button type="button" data-e="🔥">🔥</button><button type="button" data-e="😱">😱</button><button type="button" data-e="🍹">🍹</button><button type="button" data-e="🙈">🙈</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="overlay intro" id="ov-intro" hidden>
+        <p class="kicker" id="in-kick">Get ready</p>
+        <h2 class="big-t" id="in-title"></h2>
+        <p class="in-me" id="in-me"></p>
+        <div class="in-order" id="in-order"></div>
+        <p class="in-count" id="in-count"></p>
+      </div>
+
+      <div class="overlay verdict" id="ov-verdict" hidden>
+        <p class="v-grade" id="v-grade"></p>
+        <p class="v-pct" id="v-pct"></p>
+        <p class="v-stat" id="v-stat"></p>
+      </div>
+      <div class="floaters" id="floaters" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- results -->
+  <section id="scr-over" class="screen over">
+    <canvas class="confetti" id="ov-confetti"></canvas>
+    <div class="over-in">
+      <p class="kicker" id="ov-kicker"></p>
+      <h2 class="ov-title" id="ov-title"></h2>
+      <p class="ov-sub" id="ov-sub"></p>
+      <div class="ov-score" id="ov-score"></div>
+      <div class="ov-awards" id="ov-awards"></div>
+      <div class="ov-legs" id="ov-legs"></div>
+    </div>
+    <footer class="over-foot">
+      <button class="btn primary big" id="btn-again" type="button" hidden>Play again</button>
+      <button class="btn ghost" id="btn-mode" type="button" hidden>Try a chaos carry</button>
+      <button class="btn ghost" id="btn-tolobby" type="button" hidden>Change teams or settings</button>
+      <p class="wait" id="ov-wait" hidden>Waiting for the host to start the next round…</p>
+      <button class="btn link" id="btn-exit" type="button">Leave room</button>
+    </footer>
+  </section>
+</main>
+
+<!-- ═════════════════════════ BIG SCREEN ═════════════════════════ -->
+<main id="tv" class="tv" hidden>
+  <section id="tv-lobby" class="tv-screen tv-lobby">
+    <div class="tv-left">
+      <h1 class="logo tvlogo" aria-label="Brim"></h1>
+      <p class="tv-pitch">Your phone is a glass filled to the brim. Run a relay round the furniture, pour your drink into the next runner's phone, and spill less than the other team, who are busy throwing <b>quakes</b>, <b>ice cubes</b> and <b>fizz</b> at you.</p>
+      <div class="join-card">
+        <div class="qr" id="tv-qr"></div>
+        <div class="join-text">
+          <p class="lbl">Scan with your phone, or go to</p>
+          <p class="url" id="tv-url">play.jadon.me/brim</p>
+          <p class="lbl">and enter</p>
+          <p class="code" id="tv-code">····</p>
+        </div>
+      </div>
+      <div class="course">
+        <h3>Build a course</h3>
+        <ol><li>Start at a doorway</li><li>Weave round two chairs</li><li>Under the table</li><li>Round the sofa</li><li>Back to the start</li></ol>
+      </div>
+    </div>
+    <div class="tv-right">
+      <div class="tv-teams">
+        <section class="tv-team t0"><h3>Sunrise <span id="tv-tc0"></span></h3><ul id="tv-tl0"></ul></section>
+        <section class="tv-team t1"><h3>Lagoon <span id="tv-tc1"></span></h3><ul id="tv-tl1"></ul></section>
+      </div>
+      <p class="tv-heck" id="tv-heck"></p>
+      <p class="tv-empty" id="tv-empty">Waiting for phones to join…</p>
+      <div class="settings tv-settings" id="tv-settings">
+        <div class="seg" data-k="mode"><button type="button" data-v="race">Race</button><button type="button" data-v="turns">Turns</button></div>
+        <div class="seg" data-k="fill"><button type="button" data-v="generous">Generous</button><button type="button" data-v="brim">Brim</button><button type="button" data-v="meniscus">Meniscus</button></div>
+        <div class="seg" data-k="legs"><button type="button" data-v="1">Run once each</button><button type="button" data-v="2">Twice each</button></div>
+        <div class="seg" data-k="mischief"><button type="button" data-v="true">Mischief on</button><button type="button" data-v="false">Off</button></div>
+      </div>
+      <div class="tv-actions">
+        <button class="btn primary big" id="tv-start" type="button" disabled>Start</button>
+        <button class="chip" id="tv-sound" type="button">Turn sound on</button>
+      </div>
+      <form class="tv-join" id="tv-join" autocomplete="off">
+        <span>Made a room on a phone already?</span>
+        <input id="tv-join-code" maxlength="4" placeholder="CODE" spellcheck="false" autocapitalize="characters">
+        <button class="chip" type="submit">Show it here</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="tv-game" class="tv-screen tv-game" hidden>
+    <canvas id="tv-stage"></canvas>
+    <header class="tv-top">
+      <span class="tv-title" id="tv-title"></span>
+      <span class="tv-codechip">Join: <b id="tv-codechip">····</b></span>
+    </header>
+    <div class="tv-panels" id="tv-panels"></div>
+    <div class="tv-feed" id="tv-feed" aria-live="polite"></div>
+    <div class="tv-intro" id="tv-intro" hidden></div>
+    <div class="floaters" id="tv-floaters" aria-hidden="true"></div>
+  </section>
+
+  <section id="tv-over" class="tv-screen tv-over" hidden>
+    <canvas class="confetti" id="tv-confetti"></canvas>
+    <p class="kicker" id="tv-over-kicker"></p>
+    <h2 class="tv-winner" id="tv-winner"></h2>
+    <div class="tv-score" id="tv-score"></div>
+    <div class="tv-awards" id="tv-awards"></div>
+    <div class="tv-actions">
+      <button class="btn primary big" id="tv-again" type="button">Play again</button>
+      <button class="chip" id="tv-tolobby" type="button">Change teams</button>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script src="vendor/qrcode.js"></script>
+<script type="module" src="js/main.js?v=1"></script>
+</body>
+</html>

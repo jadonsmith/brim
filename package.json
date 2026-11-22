@@ -1,0 +1,17 @@
+{
+  "name": "brim",
+  "version": "1.0.0",
+  "description": "Brim: your phone is a glass filled to the brim. Carry it through a furniture relay without spilling while the other team sends earthquakes and ice cubes.",
+  "main": "server.js",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test/sim.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "qrcode-generator": "^1.5.2",
+    "ws": "^8.18.3"
+  }
+}
